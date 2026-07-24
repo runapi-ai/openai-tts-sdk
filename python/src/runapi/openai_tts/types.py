@@ -1,6 +1,6 @@
 """OpenAI TTS response models."""
 
-from runapi.core import BaseModel, optional, required
+from runapi.core import BaseModel, TaskResponse, optional, required
 
 
 class Audio(BaseModel):
@@ -12,7 +12,7 @@ class Audio(BaseModel):
     size_bytes = required(int)
 
 
-class TextToSpeechResponse(BaseModel):
+class TextToSpeechResponse(TaskResponse):
     """Completed synchronous text-to-speech response."""
 
     id = required(str)

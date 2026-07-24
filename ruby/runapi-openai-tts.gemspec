@@ -22,6 +22,6 @@ Dir.chdir(__dir__) do
     spec.files = Dir.glob("lib/**/*") + %w[LICENSE README.md]
     spec.extra_rdoc_files = ["README.md"]
         spec.require_paths = ["lib"]
-    spec.add_dependency "runapi-core", "~> 0.2.13"
+    spec.add_dependency "runapi-core", "~> 0.2.16"
   end
 end

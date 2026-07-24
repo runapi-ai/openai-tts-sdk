@@ -4,14 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "runapi-openai-tts"
-version = "0.1.0"
+version = "0.2.0"
 description = "RunAPI OpenAI TTS SDK for speech generation in JavaScript, Python, Ruby, Go, Java, and PHP"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "Apache-2.0"
 authors = [{ name = "RunAPI", email = "contact@runapi.ai" }]
 keywords = ["runapi", "runapi-ai", "openai", "openai-tts", "tts", "speech", "audio", "api", "sdk", "typescript", "python", "ruby", "golang", "java", "maven"]
-dependencies = ["runapi-core>=0.2.0"]
+dependencies = ["runapi-core>=0.3.0"]
 
 [project.urls]
 Homepage = "https://runapi.ai/models/openai-tts"
@@ -19,7 +19,7 @@ Documentation = "https://runapi.ai/docs#sdk-openai-tts"
 Source = "https://github.com/runapi-ai/openai-tts-sdk"
 Issues = "https://github.com/runapi-ai/openai-tts-sdk/issues"
 Changelog = "https://github.com/runapi-ai/openai-tts-sdk/blob/main/CHANGELOG.md"
-"Release Notes" = "https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.1.0"
+"Release Notes" = "https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.2.0"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/runapi"]

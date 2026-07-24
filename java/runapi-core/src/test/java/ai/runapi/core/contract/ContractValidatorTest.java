@@ -1,16 +1,65 @@
 package ai.runapi.core.contract;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ai.runapi.core.errors.ValidationException;
+import ai.runapi.core.types.ParamSupport;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class ContractValidatorTest {
+  @Test
+  void validatesArrayItemCountConstraints() {
+    ContractAction contract =
+        new ContractAction(
+            ContractBuilders.list("m"),
+            ContractBuilders.fieldsByModel(
+                new Object[][] {
+                  {
+                    "m",
+                    ContractBuilders.fields(
+                        new Object[][] {
+                          {
+                            "reference_image_urls",
+                            ContractBuilders.field(
+                                ContractBuilders.minItems(1), ContractBuilders.maxItems(3))
+                          }
+                        })
+                  }
+                }),
+            Collections.<String, java.util.List<ContractRule>>emptyMap());
+
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put("model", "m");
+    params.put("reference_image_urls", "image.png");
+    ValidationException error =
+        assertThrows(ValidationException.class, () -> ContractValidator.validate(contract, params));
+    assertEquals("reference_image_urls must be an array", error.getMessage());
+
+    params.put("reference_image_urls", Collections.emptyList());
+    error = assertThrows(ValidationException.class, () -> ContractValidator.validate(contract, params));
+    assertEquals("reference_image_urls must contain between 1 and 3 items", error.getMessage());
+
+    params.put("reference_image_urls", Arrays.asList("a", "b", "c", "d"));
+    error = assertThrows(ValidationException.class, () -> ContractValidator.validate(contract, params));
+    assertEquals("reference_image_urls must contain between 1 and 3 items", error.getMessage());
+
+    params.put("reference_image_urls", Arrays.asList("a", "b", "c"));
+    ContractValidator.validate(contract, params);
+
+    params.put("reference_image_urls", Collections.emptyList());
+    Map<String, Object> compacted = ParamSupport.compact(params);
+    assertFalse(compacted.containsKey("reference_image_urls"));
+    error = assertThrows(ValidationException.class, () -> ContractValidator.validate(contract, compacted));
+    assertEquals("reference_image_urls must contain between 1 and 3 items", error.getMessage());
+  }
+
   @Test
   void generatedContractContainsWanActions() {
     assertTrue(ContractGen.contract().containsKey("wan/text-to-image"));
