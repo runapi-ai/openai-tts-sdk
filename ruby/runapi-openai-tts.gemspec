@@ -4,7 +4,7 @@ Dir.chdir(__dir__) do
 
   Gem::Specification.new do |spec|
     spec.name = "runapi-openai-tts"
-    spec.version = "0.1.1"
+    spec.version = "0.1.2"
     spec.metadata["runapi_slug"] = "openai-tts"
     spec.authors = ["RunAPI"]
     spec.email = ["contact@runapi.ai"]

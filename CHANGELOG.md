@@ -1,5 +1,11 @@
 # Changelog
 
+## [js/v0.1.2](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/js%2Fv0.1.2), [ruby/v0.1.2](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/ruby%2Fv0.1.2), [go/v0.1.2](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/go%2Fv0.1.2), [python/v0.2.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.2.1) - 2026-07-28
+
+### Fixed
+- Validate the required model before sending text-to-speech requests.
+
+
 ## [java/v0.1.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/java%2Fv0.1.1) - 2026-07-28
 
 ### Added
