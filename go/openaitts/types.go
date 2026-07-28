@@ -1,6 +1,8 @@
 // Package openaitts provides OpenAI TTS speech generation through RunAPI.
 package openaitts
 
+import "github.com/runapi-ai/core-sdk/go/core"
+
 // TextToSpeechParams configures synchronous speech generation.
 type TextToSpeechParams struct {
 	Model string `json:"model" help:"required; model slug"`
@@ -17,6 +19,7 @@ type Audio struct {
 
 // TextToSpeechResponse is the completed synchronous speech result.
 type TextToSpeechResponse struct {
+	core.TaskBillingFacts
 	ID     string  `json:"id"`
 	Status string  `json:"status"`
 	Audios []Audio `json:"audios"`

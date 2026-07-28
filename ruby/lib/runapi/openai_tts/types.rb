@@ -12,7 +12,7 @@ module RunApi
       end
 
       # Completed synchronous text-to-speech response.
-      class TextToSpeechResponse < RunApi::Core::BaseModel
+      class TextToSpeechResponse < RunApi::Core::TaskResponse
         required :id, String
         required :status, String
         required :audios, [-> { Audio }]

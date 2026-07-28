@@ -29,17 +29,17 @@ public final class Audio {
     return url;
   }
 
-  /** Returns the audio format. */
+  /** Returns the format. */
   public String getFormat() {
     return format;
   }
 
-  /** Returns the audio MIME type. */
+  /** Returns the mime type. */
   public String getMimeType() {
     return mimeType;
   }
 
-  /** Returns the audio size in bytes. */
+  /** Returns the size bytes. */
   public Long getSizeBytes() {
     return sizeBytes;
   }

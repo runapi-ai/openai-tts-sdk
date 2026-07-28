@@ -3,7 +3,7 @@
   "runapi": {
     "slug": "openai-tts"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "RunAPI OpenAI TTS SDK for speech generation in JavaScript, Python, Ruby, Go, Java, and PHP",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -30,7 +30,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@runapi.ai/core": "^0.2.15"
+    "@runapi.ai/core": "^0.3.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

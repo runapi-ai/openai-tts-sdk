@@ -28,7 +28,7 @@ gem install runapi-openai-tts
 go get github.com/runapi-ai/openai-tts-sdk/go@latest
 ```
 
-For Java, install `ai.runapi:runapi-openai-tts:0.1.0`. The PHP package is released from the split repository at https://github.com/runapi-ai/openai-tts-php.
+For Java, install `ai.runapi:runapi-openai-tts:0.1.1`. The PHP package is released from the split repository at https://github.com/runapi-ai/openai-tts-php.
 
 ## Quick start
 

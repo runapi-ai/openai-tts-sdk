@@ -1,5 +1,21 @@
 # Changelog
 
+## [java/v0.1.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/java%2Fv0.1.1) - 2026-07-28
+
+### Added
+- Decode typed Task Billing Facts on synchronous text-to-speech responses.
+
+## [go/v0.1.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/go%2Fv0.1.1) - 2026-07-28
+
+### Added
+- Expose persisted billing facts on task responses.
+
+## [js/v0.1.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/js%2Fv0.1.1), [ruby/v0.1.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/ruby%2Fv0.1.1) - 2026-07-28
+
+### Added
+- Type task billing facts on text-to-speech responses.
+
+
 ## [python/v0.2.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.2.0) - 2026-07-24
 
 ### Added

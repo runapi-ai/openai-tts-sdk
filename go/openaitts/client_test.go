@@ -25,7 +25,7 @@ func (s *stubHTTPClient) Request(_ context.Context, method, path string, opts *c
 }
 
 func TestTextToSpeechRun(t *testing.T) {
-	stub := &stubHTTPClient{response: json.RawMessage(`{"id":"task_1","status":"completed","audios":[{"url":"https://runapi.ai/audio.mp3","format":"mp3","mime_type":"audio/mpeg","size_bytes":128}]}`)}
+	stub := &stubHTTPClient{response: json.RawMessage(`{"id":"task_1","status":"completed","audios":[{"url":"https://runapi.ai/audio.mp3","format":"mp3","mime_type":"audio/mpeg","size_bytes":128}],"billing":{"reservation":{"amount_cents":10},"settlement":{"charged_amount_cents":9,"amount_micro_cents":950000},"refund":{"refunded_at":"2026-07-23T00:00:00.000000Z"}}}`)}
 	client := NewClientWithHTTP(stub)
 	response, err := client.TextToSpeech.Run(context.Background(), TextToSpeechParams{Model: "tts-1", Text: "Hello"})
 	if err != nil {
@@ -40,5 +40,18 @@ func TestTextToSpeechRun(t *testing.T) {
 	}
 	if len(response.Audios) != 1 || response.Audios[0].MIMEType != "audio/mpeg" {
 		t.Fatalf("unexpected response: %+v", response)
+	}
+	if response.Billing == nil || response.Billing.Reservation == nil || response.Billing.Settlement == nil || response.Billing.Refund == nil {
+		t.Fatalf("expected complete billing facts: %#v", response.Billing)
+	}
+}
+
+func TestTextToSpeechResponseAcceptsLegacyNullBilling(t *testing.T) {
+	var response TextToSpeechResponse
+	if err := json.Unmarshal([]byte(`{"id":"task_1","status":"completed","billing":null}`), &response); err != nil {
+		t.Fatal(err)
+	}
+	if response.Billing != nil {
+		t.Fatalf("expected nil billing when no facts were recorded: %#v", response.Billing)
 	}
 }

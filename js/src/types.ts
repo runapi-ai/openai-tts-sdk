@@ -15,10 +15,11 @@ export interface Audio {
 }
 
 /** Result of a synchronous text-to-speech request. */
-export interface TextToSpeechResponse {
+export interface TextToSpeechResponse extends TaskResponse {
   id: string;
   status: 'completed';
   audios: Audio[];
   error?: string;
   [key: string]: unknown;
 }
+import type { TaskResponse } from '@runapi.ai/core';

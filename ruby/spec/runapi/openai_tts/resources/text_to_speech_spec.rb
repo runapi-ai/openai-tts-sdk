@@ -10,10 +10,11 @@ RSpec.describe RunApi::OpenaiTts::Resources::TextToSpeech do
   it "POSTs params and decodes managed audio" do
     params = {model: "tts-1", text: "Hello"}
     expect(http).to receive(:request).with(:post, endpoint, body: params)
-      .and_return("id" => "task_1", "status" => "completed", "audios" => [{"url" => "https://runapi.ai/audio.mp3", "format" => "mp3", "mime_type" => "audio/mpeg", "size_bytes" => 128}])
+      .and_return("id" => "task_1", "status" => "completed", "audios" => [{"url" => "https://runapi.ai/audio.mp3", "format" => "mp3", "mime_type" => "audio/mpeg", "size_bytes" => 128}], "billing" => {"reservation" => {"amount_cents" => 2}, "settlement" => {"charged_amount_cents" => 2, "amount_micro_cents" => 2_000_000}, "refund" => nil})
 
     result = resource.run(**params)
     expect(result).to be_a(RunApi::OpenaiTts::Types::TextToSpeechResponse)
     expect(result.audios.first.mime_type).to eq("audio/mpeg")
+    expect(result.billing.reservation.amount_cents).to eq(2)
   end
 end

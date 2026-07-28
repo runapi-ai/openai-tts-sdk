@@ -3,7 +3,7 @@
 Install the SDK:
 
 ```kotlin
-implementation("ai.runapi:runapi-openai-tts:0.1.0")
+implementation("ai.runapi:runapi-openai-tts:0.1.1")
 ```
 
 Create `OpenaiTtsClient` and call `client.textToSpeech().run(...)`.
