@@ -6,6 +6,9 @@ export const contract = {
     ],
     "fields_by_model": {
       "tts-1": {
+        "model": {
+          "required": true
+        },
         "text": {
           "required": true,
           "max": 4096,
@@ -13,6 +16,9 @@ export const contract = {
         }
       },
       "tts-1-hd": {
+        "model": {
+          "required": true
+        },
         "text": {
           "required": true,
           "max": 4096,
