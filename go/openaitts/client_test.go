@@ -3,9 +3,13 @@ package openaitts
 import (
 	"context"
 	"encoding/json"
+	"net/http"
+	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/runapi-ai/core-sdk/go/core"
+	"github.com/runapi-ai/core-sdk/go/option"
 )
 
 type stubHTTPClient struct {
@@ -22,6 +26,45 @@ func (s *stubHTTPClient) Request(_ context.Context, method, path string, opts *c
 		s.body = opts.Body
 	}
 	return s.response, nil
+}
+
+func (s *stubHTTPClient) RequestWithResponse(ctx context.Context, method, path string, opts *core.HTTPRequestOptions) (*core.HTTPResponse, error) {
+	payload, err := s.Request(ctx, method, path, opts)
+	if err != nil {
+		return nil, err
+	}
+	return &core.HTTPResponse{Body: payload, StatusCode: http.StatusOK, Header: make(http.Header)}, nil
+}
+
+func TestTextToSpeechRunFollowsAcceptedTaskLocation(t *testing.T) {
+	requests := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests++
+		switch requests {
+		case 1:
+			w.Header().Set("Location", "/api/v1/tasks/tts_task")
+			w.Header().Set("Retry-After", "0")
+			w.WriteHeader(http.StatusAccepted)
+			_, _ = w.Write([]byte(`{"id":"tts_task","status":"processing"}`))
+		case 2:
+			_, _ = w.Write([]byte(`{"id":"tts_task","status":"completed","response":{"status":200,"content_type":"application/json","headers":{},"body":{"id":"tts_task","status":"completed","audios":[{"url":"https://api.runapi.ai/audio.mp3","format":"mp3","mime_type":"audio/mpeg","size_bytes":128}]}}}`))
+		default:
+			t.Fatalf("unexpected request %d", requests)
+		}
+	}))
+	defer server.Close()
+
+	client, err := NewClient(option.WithAPIKey("test-key"), option.WithBaseURL(server.URL))
+	if err != nil {
+		t.Fatal(err)
+	}
+	result, err := client.TextToSpeech.Run(context.Background(), TextToSpeechParams{Model: "tts-1", Text: "Hello"}, option.WithPollInterval(time.Millisecond))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(result.Audios) != 1 || result.Audios[0].MIMEType != "audio/mpeg" {
+		t.Fatalf("unexpected terminal result: %#v", result)
+	}
 }
 
 func TestTextToSpeechRun(t *testing.T) {

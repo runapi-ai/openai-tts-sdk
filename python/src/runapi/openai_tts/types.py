@@ -13,7 +13,7 @@ class Audio(BaseModel):
 
 
 class TextToSpeechResponse(TaskResponse):
-    """Completed synchronous text-to-speech response."""
+    """Completed text-to-speech response."""
 
     id = required(str)
     status = required(str)

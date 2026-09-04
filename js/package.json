@@ -30,7 +30,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@runapi.ai/core": "^0.4.0"
+    "@runapi.ai/core": "^0.4.2"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

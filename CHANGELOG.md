@@ -1,5 +1,21 @@
 # Changelog
 
+## [python/v0.3.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.3.0) - 2026-09-04
+
+### Added
+- Automatically follow accepted Task results for speech generation.
+
+## [go/v0.2.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/go%2Fv0.2.0) - 2026-09-04
+
+### Added
+- Add Create, Subscribe, and automatic Run support for speech generation when a Task is accepted.
+
+## [ruby/v0.2.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/ruby%2Fv0.2.0) - 2026-09-04
+
+### Added
+- Add run and subscribe support for hybrid Task responses.
+
+
 ## [ruby/v0.1.3](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/ruby%2Fv0.1.3) - 2026-08-18
 
 ### Changed
