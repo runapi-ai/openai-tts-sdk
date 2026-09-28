@@ -1,7 +1,7 @@
 package ai.runapi.openaitts.types;
 
-import ai.runapi.core.billing.TaskBillingFacts;
 import ai.runapi.core.polling.TaskStatus;
+import ai.runapi.core.polling.TaskUsage;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,8 +25,8 @@ public class TextToSpeechResponse {
   @JsonProperty("audios")
   private List<Audio> audios;
 
-  @JsonProperty("billing")
-  private TaskBillingFacts billing;
+  @JsonProperty("usage")
+  private TaskUsage usage;
 
   private final Map<String, JsonNode> extraFields = new LinkedHashMap<String, JsonNode>();
 
@@ -50,9 +50,9 @@ public class TextToSpeechResponse {
     return audios == null ? null : Collections.unmodifiableList(audios);
   }
 
-  /** Returns the reservation, settlement, and refund facts for this task. */
-  public TaskBillingFacts getBilling() {
-    return billing;
+  /** Settled cost in USD. Present only on completed Task envelopes. */
+  public TaskUsage getUsage() {
+    return usage;
   }
 
   /** Returns unrecognized response fields preserved from the API response. */

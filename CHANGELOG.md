@@ -1,5 +1,15 @@
 # Changelog
 
+## [go/v0.2.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/go%2Fv0.2.1), [java/v0.1.2](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/java%2Fv0.1.2) - 2026-09-28
+
+### Added
+- Return usage.cost as a float USD amount on completed async Task query and webhook envelopes.
+
+### Removed
+- Remove the public Task billing object from Task envelopes.
+  Migration: Read usage.cost on completed Task envelopes. Create, processing, and failed envelopes omit usage.
+
+
 ## [python/v0.3.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.3.0) - 2026-09-04
 
 ### Added

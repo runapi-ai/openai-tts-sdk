@@ -12,7 +12,7 @@ describe('OpenAI TTS resources', () => {
       id: 'task_1',
       status: 'completed',
       audios: [{ url: 'https://runapi.ai/rails/active_storage/audio.mp3', format: 'mp3', mime_type: 'audio/mpeg', size_bytes: 128 }],
-      billing: { reservation: { amount_cents: 2 }, settlement: { charged_amount_cents: 2, amount_micro_cents: 2_000_000 }, refund: null },
+      usage: { cost: 0.02 },
     });
     const resource = new TextToSpeech(mockHttp);
 
@@ -22,6 +22,6 @@ describe('OpenAI TTS resources', () => {
       body: { model: 'tts-1', text: 'Hello from RunAPI' },
     });
     expect(result.audios[0]?.mime_type).toBe('audio/mpeg');
-    expect(result.billing.reservation?.amount_cents).toBe(2);
+    expect(result.usage?.cost).toBe(0.02);
   });
 });

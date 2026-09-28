@@ -42,7 +42,7 @@ class OpenaiTtsClientTest {
 
   @Test
   void runSendsExpectedRequestShape() throws Exception {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"sync_123\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"billing\":{\"reservation\":{\"amount_cents\":12}},\"custom\":\"kept\"}");
+    CapturingTransport transport = new CapturingTransport("{\"id\":\"sync_123\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"custom\":\"kept\",\"usage\":{\"cost\":0.05}}");
     OpenaiTtsClient client = OpenaiTtsClient.builder().apiKey("sk-test").transport(transport).build();
 
     client.textToSpeech().run(
@@ -61,7 +61,7 @@ class OpenaiTtsClientTest {
 
   @Test
   void runDecodesResponseAndExtraFields() {
-    CapturingTransport transport = new CapturingTransport("{\"id\":\"sync_123\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"billing\":{\"reservation\":{\"amount_cents\":12}},\"custom\":\"kept\"}");
+    CapturingTransport transport = new CapturingTransport("{\"id\":\"sync_123\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"custom\":\"kept\",\"usage\":{\"cost\":0.05}}");
     OpenaiTtsClient client = OpenaiTtsClient.builder().apiKey("sk-test").transport(transport).build();
 
     TextToSpeechResponse response = client.textToSpeech().run(
@@ -77,13 +77,13 @@ class OpenaiTtsClientTest {
     assertEquals("completed", response.getStatus().value());
     assertEquals("audio/mpeg", response.getAudios().get(0).getMimeType());
     assertEquals(Long.valueOf(128), response.getAudios().get(0).getSizeBytes());
-    assertEquals(Long.valueOf(12), response.getBilling().getReservation().getAmountCents());
+    assertEquals(0.05d, response.getUsage().getCost());
     assertEquals("kept", response.extraFields().get("custom").asText());
   }
 
     @Test
     void coversTexttospeechResourceMethods() {
-      CapturingTransport transport = new CapturingTransport("{\"id\":\"sync_text_to_speech\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"billing\":{\"reservation\":{\"amount_cents\":12}}}");
+      CapturingTransport transport = new CapturingTransport("{\"id\":\"sync_text_to_speech\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"usage\":{\"cost\":0.05}}");
       OpenaiTtsClient client = OpenaiTtsClient.builder().apiKey("sk-test").transport(transport).build();
 
       TextToSpeechResponse response = client.textToSpeech().run(
@@ -93,9 +93,8 @@ class OpenaiTtsClientTest {
                   .build()
       );
       assertNotNull(response);
-      assertEquals(Long.valueOf(12), response.getBilling().getReservation().getAmountCents());
-
-      CapturingTransport transportWithOptions = new CapturingTransport("{\"id\":\"sync_text_to_speech_options\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"billing\":{\"reservation\":{\"amount_cents\":12}}}");
+      assertEquals(0.05d, response.getUsage().getCost());
+      CapturingTransport transportWithOptions = new CapturingTransport("{\"id\":\"sync_text_to_speech_options\",\"status\":\"completed\",\"audios\":[{\"url\":\"https://file.runapi.ai/generated.mp3\",\"format\":\"mp3\",\"mime_type\":\"audio/mpeg\",\"size_bytes\":128}],\"usage\":{\"cost\":0.05}}");
       OpenaiTtsClient clientWithOptions = OpenaiTtsClient.builder().apiKey("sk-test").transport(transportWithOptions).build();
       assertNotNull(clientWithOptions.textToSpeech().run(
               TextToSpeechParams.builder()

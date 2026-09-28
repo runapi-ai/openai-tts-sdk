@@ -25,7 +25,7 @@ def reset_config(monkeypatch):
 
 
 def test_run_posts_params_and_decodes_managed_audio():
-    fake = FakeHttp({"id": "task_1", "status": "completed", "audios": [{"url": "https://runapi.ai/audio.mp3", "format": "mp3", "mime_type": "audio/mpeg", "size_bytes": 128}]})
+    fake = FakeHttp({"id": "task_1", "status": "completed", "usage": {"cost": 0.05}, "audios": [{"url": "https://runapi.ai/audio.mp3", "format": "mp3", "mime_type": "audio/mpeg", "size_bytes": 128}]})
     client = OpenaiTtsClient(api_key="k", http_client=fake)
 
     result = client.text_to_speech.run(model="tts-1", text="Hello")
@@ -48,14 +48,12 @@ def test_run_follows_accepted_task_result():
         ApiResponse(
             {
                 "id": "task_1",
-                "status": "completed",
+                "status": "completed", "usage": {"cost": 0.05},
                 "response": {
                     "status": 200,
                     "content_type": "application/json",
                     "headers": {},
-                    "body": {"id": "task_1", "status": "completed", "audios": []},
-                },
-            }
+                    "body": {"id": "task_1", "status": "completed", "usage": {"cost": 0.05}, "audios": []}}}
         ),
     )
     client = OpenaiTtsClient(api_key="k", http_client=fake)
@@ -65,7 +63,6 @@ def test_run_follows_accepted_task_result():
     assert isinstance(result, TextToSpeechResponse)
     assert [call[:2] for call in fake.calls] == [
         ("post", "/api/v1/openai_tts/text_to_speech"),
-        ("get", location),
-    ]
+        ("get", location)]
     assert fake.options[0].headers["Idempotency-Key"]
     assert fake.options[1].headers == fake.options[0].headers

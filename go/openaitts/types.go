@@ -19,7 +19,7 @@ type Audio struct {
 
 // TextToSpeechResponse is the completed synchronous speech result.
 type TextToSpeechResponse struct {
-	core.TaskBillingFacts
+	Usage *core.TaskUsage `json:"usage,omitempty"`
 	ID     string  `json:"id"`
 	Status string  `json:"status"`
 	Audios []Audio `json:"audios"`
