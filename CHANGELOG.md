@@ -1,5 +1,12 @@
 # Changelog
 
+## [js/v0.2.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/js%2Fv0.2.0), [ruby/v0.3.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/ruby%2Fv0.3.0), [go/v0.3.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/go%2Fv0.3.0), [python/v0.4.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.4.0), [java/v0.2.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/java%2Fv0.2.0) - 2026-10-08
+
+### Changed
+- Send request parameters to the service without local validation. Model ids and parameter values the service supports work without an SDK upgrade; static types and enum constants remain for completion.
+  Migration: Invalid parameters now fail with the validation error built from the service's 400 response, including its status and message, instead of a validation error raised locally before the request. The error type is unchanged: `ValidationError` in JavaScript, Python, and Ruby, `ValidationException` in Java and PHP, and `ErrValidation` in Go.
+
+
 ## [go/v0.2.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/go%2Fv0.2.1), [java/v0.1.2](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/java%2Fv0.1.2) - 2026-09-28
 
 ### Added

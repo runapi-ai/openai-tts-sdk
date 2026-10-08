@@ -2,4 +2,4 @@ module github.com/runapi-ai/openai-tts-sdk/go
 
 go 1.26
 
-require github.com/runapi-ai/core-sdk/go v0.4.1
+require github.com/runapi-ai/core-sdk/go v0.5.0

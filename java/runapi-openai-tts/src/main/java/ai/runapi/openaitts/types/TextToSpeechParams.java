@@ -11,7 +11,7 @@ public final class TextToSpeechParams {
 
   private TextToSpeechParams(Builder builder) {
     this.model = builder.model;
-    this.text = OpenaittsParamUtils.requireNonBlank(builder.text, "text");
+    this.text = builder.text;
   }
 
   /** Creates a new TextToSpeechParams builder. */
@@ -49,14 +49,14 @@ public final class TextToSpeechParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = OpenaittsParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
 
     /** Sets the line text. */
     public Builder text(String value) {
-      this.text = OpenaittsParamUtils.requireNonBlank(value, "text");
+      this.text = value;
       return this;
     }
 

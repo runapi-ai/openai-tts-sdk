@@ -42,9 +42,6 @@ type TextToSpeech struct{ http core.HTTPClient }
 func (r *TextToSpeech) Create(ctx context.Context, params TextToSpeechParams, opts ...option.RequestOption) (*core.HybridCreateResponse[TextToSpeechResponse], error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	body := core.CompactParams(params)
-	if err := core.ValidateParams(contractSchema["text-to-speech"], body); err != nil {
-		return nil, err
-	}
 	return core.CreateHybrid[TextToSpeechResponse](ctx, r.http, textToSpeechPath, body, requestOptions)
 }
 
@@ -59,8 +56,5 @@ func (r *TextToSpeech) Subscribe(ctx context.Context, acceptance *core.HybridAcc
 func (r *TextToSpeech) Run(ctx context.Context, params TextToSpeechParams, opts ...option.RequestOption) (*TextToSpeechResponse, error) {
 	requestOptions, pollingOptions := option.ResolveRequestOptions(opts...)
 	body := core.CompactParams(params)
-	if err := core.ValidateParams(contractSchema["text-to-speech"], body); err != nil {
-		return nil, err
-	}
 	return core.RunHybrid[TextToSpeechResponse](ctx, r.http, textToSpeechPath, body, requestOptions, pollingOptions)
 }

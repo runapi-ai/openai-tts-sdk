@@ -1,6 +1,5 @@
-import type { ActionSchema, HttpClient, RequestOptions } from '@runapi.ai/core';
-import { compactParams, validateParams } from '@runapi.ai/core';
-import { contract } from '../contract_gen';
+import type { HttpClient, RequestOptions } from '@runapi.ai/core';
+import { compactParams } from '@runapi.ai/core';
 import type { TextToSpeechParams, TextToSpeechResponse } from '../types';
 
 const ENDPOINT = '/api/v1/openai_tts/text_to_speech';
@@ -12,7 +11,6 @@ export class TextToSpeech {
   /** Generate speech synchronously. */
   async run(params: TextToSpeechParams, options?: RequestOptions): Promise<TextToSpeechResponse> {
     const body = compactParams(params);
-    validateParams(contract['text-to-speech'] as ActionSchema, body as Record<string, unknown>);
     return this.http.request<TextToSpeechResponse>('POST', ENDPOINT, { body, ...options });
   }
 }

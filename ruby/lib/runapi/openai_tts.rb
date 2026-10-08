@@ -2,7 +2,6 @@
 
 require "runapi/core"
 require_relative "openai_tts/types"
-require_relative "openai_tts/contract_gen"
 require_relative "openai_tts/resources/text_to_speech"
 require_relative "openai_tts/client"
 
