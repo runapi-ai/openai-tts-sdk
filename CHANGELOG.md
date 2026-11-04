@@ -1,5 +1,12 @@
 # Changelog
 
+## [python/v0.5.0](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/python%2Fv0.5.0) - 2026-11-04
+
+### Breaking
+- Require Python 3.10 or newer.
+  Migration: Upgrade the Python runtime to 3.10 or newer before installing or upgrading this package.
+
+
 ## [js/v0.2.1](https://github.com/runapi-ai/openai-tts-sdk/releases/tag/js%2Fv0.2.1) - 2026-10-28
 
 ### Changed
